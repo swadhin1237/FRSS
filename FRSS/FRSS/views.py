@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'index2.html')
 
 
 def adminuser(request):
@@ -11,7 +11,7 @@ def adminuser(request):
 
 
 def personaluser(request):
-    return render(request, 'user.html')
+    return render(request, './shop/index.html')
 
 
 def addCatelog(request):
