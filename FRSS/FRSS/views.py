@@ -3,12 +3,15 @@ from django.shortcuts import render
 
 
 def index(request):
-    return render(request, 'index2.html')
+    return render(request, 'login.html')
 
 
 def adminuser(request):
     return render(request, 'admin.html')
 
+
+def signup(request):
+    return render(request, 'signup.html')
 
 def personaluser(request):
     return render(request, './shop/index.html')
