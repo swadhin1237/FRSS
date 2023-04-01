@@ -25,7 +25,7 @@ class Contact(models.Model):
     desc = models.CharField(max_length=500, default="")
 
     def __str__(self):
-        return self.nam
+        return self.name
 
 
 class Customer(models.Model):
@@ -34,6 +34,10 @@ class Customer(models.Model):
     phone = models.CharField(max_length=10, default="")
     first_name = models.CharField(max_length=70, default="")
     last_name = models.CharField(max_length=70, default="")
+    Pending_amount=models.IntegerField(default=0)
+    Max_loan=models.IntegerField(default=0)
+
 
     def __str__(self):
         return self.first_name
+

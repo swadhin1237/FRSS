@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 # Create your views here.
 
 
-def index(request):
+def index(request,user1_id):
     allProds = []
     catprods = Product.objects.values('sub_category','id')
     cats = {item['sub_category'] for item in catprods}
@@ -21,14 +21,31 @@ def index(request):
         n = len(prod)
         nSlides = n // 4 + ceil((n / 4) - (n // 4))
         allProds.append([prod, range(1, nSlides), nSlides])
-    params = {'allProds': allProds}
+    allcustomer = Customer.objects.filter()
+    cust = None
+    for i in allcustomer:
+        if i.user.id == user1_id:
+            cust = i
+    params = {'allProds': allProds,'customer':cust}
     return render(request, 'shop/index.html', params)
 
-def about(request):
-    return render(request, 'shop/about.html')
+def about(request,user1_id):
+    allcustomer = Customer.objects.filter()
+    cust = None
+    for i in allcustomer:
+        print("i.user.username : id-> ",i.user.id)
+        if i.user.id == user1_id:
+            cust = i
+    return render(request, 'shop/about.html',{'customer': cust})
 
 
-def contact(request):
+def contact(request,user1_id):
+    allcustomer = Customer.objects.filter()
+    cust = None
+    for i in allcustomer:
+        print("i.user.username : id-> ", i.user.id)
+        if i.user.id == user1_id:
+            cust = i
     if request.method=="POST":
         name = request.POST.get('name', '')
         email = request.POST.get('email', '')
@@ -36,7 +53,7 @@ def contact(request):
         desc = request.POST.get('desc', '')
         contact = Contact(name=name, email=email, phone=phone, desc=desc)
         contact.save()
-    return render(request, 'shop/contact.html')
+    return render(request, 'shop/contact.html', {'customer': cust})
 
 
 def learn(request):
@@ -57,11 +74,11 @@ def log_in(request):
             if request.user.is_superuser:
                 return HttpResponse("This is not a customer id")
             else:
-                return redirect("/index")
+                return index(request,user.id)
         else:
             alert = True
             return render(request, "login.html", {'alert': alert})
-    return render(request, "login.html")
+    return render(request, "shop/login.html")
 
 
 def signup(request):
@@ -86,9 +103,9 @@ def signup(request):
         user.save()
         customer.save()
 
-        alert = True
-        return render(request, "signup.html", {'alert': alert})
-    return render(request, "signup.html")
+        return log_in(request)
+    return render(request, "login.html")
+
 
 
 def search(request):
@@ -104,4 +121,8 @@ def productView(request, id):
 
 def checkout(request):
     return render(request,"shop/checkout.html")
+
+def history(request,customer1):
+    
+    pass
 

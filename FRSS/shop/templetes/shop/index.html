@@ -37,7 +37,7 @@ padding-right: 0;
 {% endblock %} 
 {% block body %}
 <div class="alert alert-success" role="alert">
-  <strong>Welcome </strong>Have a nice day
+  <strong>Welcome {{customer.user.username}} </strong>Have a nice day
 </div>
 {% load static %}
 
@@ -59,7 +59,7 @@ padding-right: 0;
                 <div class="carousel-item active">
                     {% for i in product %}
                     <div class="col-xs-3 col-sm-3 col-md-3">
-                        <div class="card align-items-center" style="width: 18rem;">
+                        <div class="card align-items-center" style:" width: 18rem ;">
                             <img src='/media/{{i.image}}' class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title" id="namepr{{i.id}}">{{i.product_name}}</h5>

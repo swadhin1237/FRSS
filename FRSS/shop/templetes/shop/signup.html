@@ -155,10 +155,11 @@
       </style>
 </head>
 
-<body style="background-image: url(../media/bg.jpg);">
+<body style="background-image: url(../../../media/bg.jpg);">
     <div class="container">
         <h1 class="form-title">Registration</h1>
-        <form method="POST">
+        
+        <form action="/shop/signup/" method="post">
             <div class="main-user-info">
                 <div class="user-input-box">
                     <label for="username">Username</label>
@@ -168,30 +169,34 @@
                     <label for="fullName">First Name</label>
                     <input type="text" id="fullName" name="first_name" placeholder="Enter First Name" required/>
                 </div>
+                
                 <div class="user-input-box">
                     <label for="fullName">Last Name</label>
                     <input type="text" id="fullName" name="last_name" placeholder="Enter Last Name" required/>
                 </div>
+            
                 <div class="user-input-box">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" placeholder="Enter Email" required/>
                 </div>
+           
                 <div class="user-input-box">
                     <label for="phoneNumber">Phone Number</label>
                     <input type="text" id="phoneNumber" name="phone" placeholder="Enter Phone Number" required/>
                 </div>
+                
                 <div class="user-input-box">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" placeholder="Enter Password" required/>
                 </div>
+               
                 <div class="user-input-box">
                     <label for="confirmPassword">Confirm Password</label>
                     <input type="password" id="confirmPassword" name="confirm_password" placeholder="Confirm Password" required/>
                 </div>
             </div>
-            <div class="form-submit-btn">
-                <input type="submit" value="Register">
-            </div>
+              {% csrf_token %}
+              <button type="submit" class="form-submit-btn">Registration</button>
         </form>
     </div>
 </body>

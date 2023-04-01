@@ -10,11 +10,13 @@ def adminuser(request):
     return render(request, 'admin.html')
 
 
-def signup(request):
-    return render(request, 'signup.html')
+def sign_up(request):
+    return render(request, './shop/signup.html')
 
 def personaluser(request):
     return render(request, './shop/index.html')
+
+
 
 
 def addCatelog(request):

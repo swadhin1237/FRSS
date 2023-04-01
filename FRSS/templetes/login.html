@@ -10964,12 +10964,13 @@
           <div class="col-md-6 col-lg-4">
             <div class="login-wrap p-0">
               <h3 class="mb-4 text-center">WELCOME</h3>
-              <form action="#" class="signin-form">
+              <form action="/shop/log_in" method="post" class="signin-form">
                 <div class="form-group">
                   <input
                     type="text"
                     class="form-control"
                     placeholder="Username"
+                    name ="username"
                     required
                   />
                 </div>
@@ -10979,6 +10980,7 @@
                     type="password"
                     class="form-control"
                     placeholder="Password"
+                    name="password"
                     required
                   />
                   <span
@@ -10986,6 +10988,7 @@
                     class="fa fa-fw fa-eye field-icon toggle-password"
                   ></span>
                 </div>
+                {% csrf_token %}
                 <div class="form-group">
                   <button
                     type="submit"
@@ -11008,7 +11011,7 @@
               </form>
               <p class="w-100 text-center">&mdash; Not a Member? &mdash;</p>
               <div class="social d-flex text-center">
-                <a href="/signup" class="px-2 py-2 mr-md-1 rounded"
+                <a href="/sign_up" class="px-2 py-2 mr-md-1 rounded"
                   ><span class="ion-logo-facebook mr-2"></span> Sign Up</a
                 >
             
