@@ -125,11 +125,16 @@ def search(request):
     return render(request, 'search.html')
 
 
-def productView(request, id):
+def productView(request, id,user1_id):
     # Fetch the product using the id
     product = Product.objects.filter(id=id)
+    allcustomer = Customer.objects.filter()
+    cust = None
+    for i in allcustomer:
+        if i.user.id == user1_id:
+            cust = i
 
-    return render(request, 'shop/prodView.html', {'product': product[0]})
+    return render(request, 'shop/prodView.html', {'product': product[0], 'customer': cust})
 
 
 def checkout(request,user1_id):
@@ -158,9 +163,9 @@ def checkout(request,user1_id):
                     if item_id==k.id:
                         pro=k
                 order1 = OrderDetail.objects.create(order_name=pro.product_name, customer_id=cust.user.id,customer_name=cust.user.username,
-                                                    product_id=pro.id, product_taken=item_number, sub_cat=pro.sub_category, total_price=pro.price)
-                cust.changeMaxLoan(pro.price)
-                cust.changePendingAmount(pro.price)
+                                                    product_id=pro.id, product_taken=item_number, sub_cat=pro.sub_category, total_price=pro.price*item_number)
+                cust.changeMaxLoan(pro.price*item_number)
+                cust.changePendingAmount(pro.price*item_number)
                 cust.save()
                 pro.changePrice(item_number)
                 pro.changeCurrentNumber(item_number)
