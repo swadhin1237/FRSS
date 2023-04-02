@@ -46,7 +46,7 @@ padding-right: 0;
 <div class="container">
     <!--Slideshow starts here -->
     {% for product, range, nSlides in allProds %}
-    <h5 class="my-4">Flash Sale On {{product.0.category}} - Recommended Items</h5>
+    <h5 class="my-4">Flash Sale On {{product.0.sub_category}} - Recommended Items</h5>
     <div class="row">
         <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
             <ul class="carousel-indicators">
@@ -65,7 +65,7 @@ padding-right: 0;
                                 <h5 class="card-title" id="namepr{{i.id}}">{{i.product_name}}</h5>
                                 <p class="card-text">{{i.product_desc|slice:"0:53"}}...</p>
                                 <span id="divpr{{i.id}}" class="divpr">
-                                    <button id="pr{{i.id}}" class="btn btn-primary cart">Add To Cart</button>
+                                    <button id="pr{{i.id}}" class="btn btn-primary cart" >Add To Cart</button>
                                 </span>
                                 <a href="/shop/products/{{i.id}}"><button id="qv{{i.id}}" class="btn btn-primary cart">QuickView</button></a>
                             </div>
@@ -128,7 +128,7 @@ function updatePopover(cart) {
         popStr = popStr + document.getElementById('name' + item).innerHTML.slice(0, 19) + "... Qty: " + cart[item][0] + '<br>';
         i = i + 1;
     }
-    popStr = popStr + "</div> <a href='/shop/checkout'><button class='btn btn-primary' id ='checkout'>Checkout</button></a> <button class='btn btn-primary' onclick='clearCart()' id ='clearCart'>Clear Cart</button>     "
+    popStr = popStr + "</div> <a href='/shop/checkout/{{customer.user.id}}'><button class='btn btn-primary' id ='checkout'>Checkout</button></a> <button class='btn btn-primary' onclick='clearCart()' id ='clearCart'>Clear Cart</button>     "
     console.log(popStr);
     document.getElementById('popcart').setAttribute('data-content', popStr);
     $('#popcart').popover('show');
@@ -164,6 +164,7 @@ $('.divpr').on("click", "button.minus", function() {
     updateCart(cart);
 });
 $('.divpr').on("click", "button.plus", function() {
+
     a = this.id.slice(6, );
     cart['pr' + a][0] = cart['pr' + a][0] + 1;
     document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];

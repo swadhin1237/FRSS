@@ -1,0 +1,19 @@
+{% extends 'shop/basic.html' %}
+{% block title %}Past Orders{% endblock %}
+
+{% block body %}
+<div class="alert alert-success" role="alert">
+  <strong>Welcome {{customer.user.username}} </strong>Your Past Order
+  
+</div>
+
+<div class="container">
+    <div class="col my-4">
+        <h2>Your Past History </h2>
+        <div class="my-4">
+            <ul class="list-group" id="items">
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
