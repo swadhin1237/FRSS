@@ -72,3 +72,15 @@ class OrderDetail(models.Model):
         return self.order_name
 
 
+class Payment(models.Model):
+    
+    name = models.CharField(max_length=50,default="")
+    credit_card_number = models.IntegerField(default="")
+    month= models.CharField(max_length=15, default="")
+    year = models.IntegerField(default="")
+    cvv = models.IntegerField(default="")
+    pay=models.IntegerField(default=0)
+
+    
+    def __str__(self):
+        return self.name

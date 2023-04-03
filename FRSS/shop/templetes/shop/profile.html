@@ -548,7 +548,8 @@
             <ul>
                 <li><a href="#about">Profile</a></li>
                 <li><a href="#issue">Purchase History</a></li>
-                <li><a href="../../../">Logout</a></li>
+                <li><a href="/shop/payment2/{{customer.user.id}}/">Payment</a></li>
+                <li><a href="/shop/logout/">Logout</a></li>
             </ul>
         </nav>
 
@@ -575,7 +576,7 @@
                 <h3><span> Email : </span> {{customer.email}} </h3>
                 <h3><span> Phone number : </span> {{customer.phone}} </h3>
                 <h3><span> Pending amount : </span> {{customer.Pending_amount}} </h3>
-                <a href="/edit_profile/"><button class="btn"> Edit Profile</button></a>
+                <a href="/shop/edit_profile2/{{customer.user.id}}/"><button class="btn"> Edit Profile</button></a>
             </div>
         </div>
     </section>

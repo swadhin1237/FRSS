@@ -1,9 +1,6 @@
 {% extends 'shop/basic.html' %}
 
  {% block title%} {{product.product_name}} - My Awesome Cart{% endblock %}
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
  {%block css%}
   <style>
    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
@@ -212,6 +209,7 @@
  {% endblock %}
  
  {% block body %}
+ <div>
  <div class = "card-wrapper">
    <div class = "card">
      <!-- card left -->
@@ -246,9 +244,9 @@
        <div class = "purchase-info">
         <span id="qnt" class="pr{{product.id}}" >
           <h6><b>Quantity</b></h6>
-         <input  type = "number"  value = "0"  size="20">
+         <input  type = "number"  value = "0"  style="width: 110px;"  readonly >
          <h6><b>NetPrice</b></h6>
-         <input id="priceCal" class="{{product.price}}" type = "number"  value = "0"  size="20" >
+         <input id="priceCal" class="{{product.price}}" type = "number"  value = "0"   style="width: 110px;" readonly>
         </span>
         <br>
           <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="color: #ffffff;"><b>Review</b></button>
@@ -284,16 +282,16 @@
     </div>
   </div>
 </div>
-
+</div>
  {% endblock %}
   
  
  {% block js %}
  <script>
-cart = JSON.parse(localStorage.getItem('cart'));
+ cart = JSON.parse(localStorage.getItem('cart'));
  let aid=document.getElementById('qnt').getAttribute('class');
  let pri=document.getElementById('priceCal').getAttribute('class');
- document.getElementById('qnt').innerHTML='<h6><b>Quantity</b></h6> <input type = "number"  size="20" value = '+cart[aid][0] +'    > <h6><b>NetPrice</b></h6><input id="priceCal" class="{{product.price}}" type = "number"  size="20" value = '+cart[aid][0]*Number(pri) +'    >';
+ document.getElementById('qnt').innerHTML='<h6><b>Quantity</b></h6> <input type = "number"   style="width: 110px;" value = '+cart[aid][0] +'  readonly  > <h6><b>NetPrice</b></h6><input id="priceCal" class="{{product.price}}" type = "number"   style="width: 110px;" value = '+cart[aid][0]*Number(pri) +'  readonly  >';
  document.getElementById('popcart').innerHTML="";
  
  

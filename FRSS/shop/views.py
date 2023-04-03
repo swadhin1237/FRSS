@@ -208,3 +208,82 @@ def profile(request,user1_id):
             cust = i
     all_order = OrderDetail.objects.filter(customer_id=user1_id)
     return render(request,"shop/profile.html",{'customer':cust,'OrderDetail':all_order})
+
+def log_out(request):
+    logout(request)
+    return redirect("/")
+
+def editProfile(request,user1_id):
+    allcustomer = Customer.objects.filter()
+    cust = None
+    for i in allcustomer:
+        if i.user.id == user1_id:
+            cust = i
+    if request.method == "POST":
+        cust.first_name = request.POST['first_name']
+        cust.last_name = request.POST['last_name']
+        cust.email = request.POST['email']
+        cust.phone = request.POST['phone']
+        cust.save()
+        return render(request, "shop/editprofile.html",{'customer': cust, 'alert': 101})
+    return render(request, "shop/editprofile.html", {'customer': cust})
+
+def editProfile2(request,user1_id):
+    allcustomer = Customer.objects.filter()
+    cust = None
+    for i in allcustomer:
+        if i.user.id == user1_id:
+            cust = i
+    return render(request, "shop/editprofile.html", {'customer': cust})
+
+
+def change_password(request, user1_id):
+    allcustomer = Customer.objects.filter()
+    cust = None
+    for i in allcustomer:
+        if i.user.id == user1_id:
+            cust = i
+    if request.method == "POST":
+        current_password = request.POST['current_password']
+        new_password = request.POST['new_password']
+        try:
+            u = User.objects.get(id=user1_id)
+            if u.password==current_password:
+                u.set_password(new_password)
+                u.save()
+                alert = True
+                return render(request, "shop/change_password.html", {'alert': alert,'customer':cust})
+            else:
+                currpasswrong = True
+                return render(request, "shop/change_password.html", {'currpasswrong': currpasswrong, 'customer': cust})
+        except:
+            pass
+    return render(request, "shop/change_password.html")
+
+
+def payment2(request, user1_id):
+    allcustomer = Customer.objects.filter()
+    cust = None
+    for i in allcustomer:
+        if i.user.id == user1_id:
+            cust = i
+    return render(request, 'shop/payment.html', {'customer': cust})
+
+def payment(request, user1_id):
+    allcustomer = Customer.objects.filter()
+    cust = None
+    for i in allcustomer:
+        if i.user.id == user1_id:
+            cust = i
+    if request.method == "POST":
+        name = cust.first_name + cust.last_name
+        credit_card_number = request.POST.get('credit_card_number', '')
+        month = request.POST.get('month', '')
+        year = request.POST.get('year', '')
+        cvv = request.POST.get('cvv', '')
+        pay = request.POST['payment']
+        cust.Pending_amount=cust.Pending_amount-int(pay)
+        cust.save()
+        payment = Payment.objects.create(name=name,credit_card_number=credit_card_number, month=month, year=year, cvv=cvv,pay=pay)
+        payment.save()
+    return redirect("/shop/profile/"+str(user1_id))
