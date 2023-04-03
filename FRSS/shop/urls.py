@@ -12,6 +12,8 @@ urlpatterns = [
     path("search/", views.search, name="Search"),
     path("learn/",views.learn,name="Learn"),
     path("signup/", views.signup, name="signup"),
-    path("log_in", views.log_in, name="log_in"),
-    path("history/<int:user1_id>", views.history, name='history')
+    path("log_in/", views.log_in, name="log_in"),
+    path("history/<int:user1_id>", views.history, name='history'),
+    path("explore/",views.explore,name='explore'),
+    path("profile/<int:user1_id>",views.profile,name="profile")
 ]

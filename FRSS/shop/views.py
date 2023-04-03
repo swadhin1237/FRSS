@@ -90,7 +90,7 @@ def log_in(request):
                 return index(request,user.id)
         else:
             alert = True
-            return render(request, "login.html", {'alert': alert})
+            return render(request, "shop/login.html", {'alert': alert})
     return render(request, "shop/login.html")
 
 
@@ -117,7 +117,7 @@ def signup(request):
         customer.save()
 
         return log_in(request)
-    return render(request, "login.html")
+    return render(request, "shop/signup.html")
 
 
 
@@ -187,3 +187,24 @@ def history(request, user1_id):
     return render(request,"shop/history.html",{'orders':all_order,'customer':cust})
 
 
+def explore(request):
+    allProds = []
+    catprods = Product.objects.values('sub_category', 'id')
+    cats = {item['sub_category'] for item in catprods}
+    for cat in cats:
+        prod = Product.objects.filter(sub_category=cat)
+        n = len(prod)
+        nSlides = n // 4 + ceil((n / 4) - (n // 4))
+        allProds.append([prod, range(1, nSlides), nSlides])
+    params = {'allProds': allProds}
+    return render(request, 'shop/demoview.html', params)
+
+
+def profile(request,user1_id):
+    allcustomer = Customer.objects.filter()
+    cust = None
+    for i in allcustomer:
+        if i.user.id == user1_id:
+            cust = i
+    all_order = OrderDetail.objects.filter(customer_id=user1_id)
+    return render(request,"shop/profile.html",{'customer':cust,'OrderDetail':all_order})

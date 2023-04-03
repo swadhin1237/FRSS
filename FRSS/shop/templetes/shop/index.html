@@ -33,6 +33,7 @@ padding-top: 222px;
 body .no-padding{
 padding-left: 0;
 padding-right: 0;
+}
 </style>
 {% endblock %} 
 {% block body %}
@@ -155,6 +156,7 @@ function updateCart(cart) {
     console.log(cart);
     updatePopover(cart);
 }
+
 // If plus or minus button is clicked, change the cart as well as the display value
 $('.divpr').on("click", "button.minus", function() {
     a = this.id.slice(7, );
@@ -163,6 +165,7 @@ $('.divpr').on("click", "button.minus", function() {
     document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
     updateCart(cart);
 });
+
 $('.divpr').on("click", "button.plus", function() {
 
     a = this.id.slice(6, );

@@ -1,136 +1,302 @@
 {% extends 'shop/basic.html' %}
 
-{% block title%} {{product.product_name}} - My Awesome Cart{% endblock %}
-{% block body %}
-<!-- <div class="container my-4">
-    <div class="row">
-    <div class="col-md-4">
-    <div class="row">
-        <img src="/media//{{product.image}}" width="233px" height="385px">
-    </div>
-        <div class="col my-1 " style="display: flex; justify-content: space-around;">
-            <button class="btn btn-primary">Buy Now</button>
-            <button class="btn btn-primary">Add To Cart</button>
-        </div>
+ {% block title%} {{product.product_name}} - My Awesome Cart{% endblock %}
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ {%block css%}
+  <style>
+   @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
+ 
+ *{
+     box-sizing: border-box;
+     padding: 0;
+     margin: 0;
+     font-family: 'Open Sans', sans-serif;
+ }
+ body{
+     line-height: 1.5;
+ }
+ .card-wrapper{
+     max-width: 1100px;
+     margin: 0 auto;
+ }
+ img{
+     width: 100%;
+     display: block;
+ }
+ .img-display{
+     overflow: hidden;
+ }
+ .img-showcase{
+     display: flex;
+     width: 100%;
+     transition: all 0.5s ease;
+ }
+ .img-showcase img{
+     min-width: 100%;
+ }
+ .img-select{
+     display: flex;
+ }
+ .img-item{
+     margin: 0.3rem;
+ }
+ .img-item:nth-child(1),
+ .img-item:nth-child(2),
+ .img-item:nth-child(3){
+     margin-right: 0;
+ }
+ .img-item:hover{
+     opacity: 0.8;
+ }
+ .product-content{
+     padding: 2rem 1rem;
+ }
+ .product-title{
+     font-size: 3rem;
+     text-transform: capitalize;
+     font-weight: 700;
+     position: relative;
+     color: #12263a;
+     margin: 1rem 0;
+ }
+ .product-title::after{
+     content: "";
+     position: absolute;
+     left: 0;
+     bottom: 0;
+     height: 4px;
+     width: 80px;
+     background: #12263a;
+ }
+ .product-link{
+     text-decoration: none;
+     text-transform: uppercase;
+     font-weight: 400;
+     font-size: 0.9rem;
+     display: inline-block;
+     margin-bottom: 0.5rem;
+     background: #256eff;
+     color: #fff;
+     padding: 0 0.3rem;
+     transition: all 0.5s ease;
+ }
+ .product-link:hover{
+     opacity: 0.9;
+ }
+ .product-rating{
+     color: #ffc107;
+ }
+ .product-rating span{
+     font-weight: 600;
+     color: #252525;
+ }
+ .product-price{
+     margin: 1rem 0;
+     font-size: 1rem;
+     font-weight: 700;
+ }
+ .product-price span{
+     font-weight: 400;
+ }
+ .last-price span{
+     color: #f64749;
+     text-decoration: line-through;
+ }
+ .new-price span{
+     color: #256eff;
+ }
+ .product-detail h2{
+     text-transform: capitalize;
+     color: #12263a;
+     padding-bottom: 0.6rem;
+ }
+ .product-detail p{
+     font-size: 0.9rem;
+     padding: 0.3rem;
+     opacity: 0.8;
+ }
+ .product-detail ul{
+     margin: 1rem 0;
+     font-size: 0.9rem;
+ }
+ .product-detail ul li{
+     margin: 0;
+     list-style: none;
+     background: url(shoes_images/checked.png) left center no-repeat;
+     background-size: 18px;
+     padding-left: 1.7rem;
+     margin: 0.4rem 0;
+     font-weight: 600;
+     opacity: 0.9;
+ }
+ .product-detail ul li span{
+     font-weight: 400;
+ }
+ .purchase-info{
+     margin: 1.5rem 0;
+ }
+ .purchase-info input,
+ .purchase-info .btn{
+     border: 1.5px solid #ddd;
+     border-radius: 25px;
+     text-align: center;
+     padding: 0.45rem 0.8rem;
+     outline: 0;
+     margin-right: 0.2rem;
+     margin-bottom: 1rem;
+ }
+ .purchase-info input{
+     width: 60px;
+ }
+ .purchase-info .btn{
+     cursor: pointer;
+     color: #fff;
+ }
+ .purchase-info .btn:first-of-type{
+     background: #256eff;
+ }
+ .purchase-info .btn:last-of-type{
+     background: #f64749;
+ }
+ .purchase-info .btn:hover{
+     opacity: 0.9;
+ }
+ .social-links{
+     display: flex;
+     align-items: center;
+ }
+ .social-links a{
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     width: 32px;
+     height: 32px;
+     color: #000;
+     border: 1px solid #000;
+     margin: 0 0.2rem;
+     border-radius: 50%;
+     text-decoration: none;
+     font-size: 0.8rem;
+     transition: all 0.5s ease;
+ }
+ .social-links a:hover{
+     background: #000;
+     border-color: transparent;
+     color: #fff;
+ }
+ 
+ @media screen and (min-width: 992px){
+     .card{
+         display: grid;
+         grid-template-columns: repeat(2, 1fr);
+         grid-gap: 1.5rem;
+     }
+     .card-wrapper{
+         height: 100vh;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+     }
+     .product-imgs{
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+     }
+     .product-content{
+         padding-top: 0;
+     }
+ }
+ </style>
+ {% endblock %}
+ 
+ {% block body %}
+ <div class = "card-wrapper">
+   <div class = "card">
+     <!-- card left -->
+     <div class = "product-imgs">
+       <div class = "img-display">
+         <div class = "img-showcase">
+           <img src = "/media//{{product.image}}" alt = "prod image">
+         </div>
+       </div>
+       
+     </div>
+     <!-- card right -->
+     <div class = "product-content">
+       <h2 class = "product-title">{{product.product_name}}</h2>
+ 
+       <div class = "product-price">
+         <p class = "new-price">New Price: <span>{{product.price}}</span></p>
+       </div>
+ 
+       <div class = "product-detail" >
+         <h2>about this item: </h2>
+         <p>{{product.product_desc}}</p>
+         <ul>
+           <li>Color: <span>{{product.color}}</span></li>
+           <li>Available: <span>in stock</span></li>
+           <li>Category: <span>{{product.sub_category}}</span></li>
+           <li>Shipping Area: <span>All over the world</span></li>
+           <li>Shipping Fee: <span>Free</span></li>
+         </ul>
+       </div>
+ 
+       <div class = "purchase-info">
+        <span id="qnt" class="pr{{product.id}}" >
+          <h6><b>Quantity</b></h6>
+         <input  type = "number"  value = "0"  size="20">
+         <h6><b>NetPrice</b></h6>
+         <input id="priceCal" class="{{product.price}}" type = "number"  value = "0"  size="20" >
+        </span>
+        <br>
+          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="color: #ffffff;"><b>Review</b></button>
+       </div>
 
-    </div>
-
-    <div class="col-md-8">
-        <h5>{{product.product_name}}</h5>
-        <p><b>Rs.{{product.price}} </b></p>
-        <p>{{product.product_desc}}</p>
-
-
-    </div>
-    </div>
-
-
-</div> -->
-
-<section class="section-content padding-y bg">
-    <div class="container">
-    
-    <!-- ============================ COMPONENT 1 ================================= -->
-    <div class="card">
-        <div class="row no-gutters">
-            <aside class="col-md-6">
-    <article class="gallery-wrap"> 
-    <div class="img-big-wrap">
-      <div> <a href="#"><img src="/media//{{product.image}}"></a></div>
-    </div> <!-- slider-product.// -->
-    <div class="thumbs-wrap">
-      <a href="#" class="item-thumb"> <img src="/media//{{product.image}}"></a>
-      <a href="#" class="item-thumb"> <img src="/media//{{product.image}}"></a>
-      <a href="#" class="item-thumb"> <img src="/media//{{product.image}}"></a>
-      <a href="#" class="item-thumb"> <img src="/media//{{product.image}}"></a>
-    </div> <!-- slider-nav.// -->
-    </article> <!-- gallery-wrap .end// -->
-            </aside>
-            <main class="col-md-6 border-left">
-    <article class="content-body">
-    
-    <h2 class="title"> {{product.product_name}} </h2>
-    
-    <div class="rating-wrap my-3">
-        <ul class="rating-stars">
-            <li style="width:80%" class="stars-active"> 
-                <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
-                <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
-                <i class="fa fa-star"></i> 
-            </li>
-            <li>
-                <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
-                <i class="fa fa-star"></i> <i class="fa fa-star"></i> 
-                <i class="fa fa-star"></i> 
-            </li>
-        </ul>
-        <small class="label-rating text-muted">132 reviews</small>
-        <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 orders </small>
-    </div> <!-- rating-wrap.// -->
-    
-    <div class="mb-3"> 
-        <var class="price h4"><b>Rs.{{product.price}} </b></var> 
-    </div> <!-- price-detail-wrap .// -->
-   
-    <p>{{product.desc}}</p>
-    
-    <dl class="row">
-      <dt class="col-sm-3">Model#</dt>
-      <dd class="col-sm-9">Odsy-1000</dd>
-    
-      <dt class="col-sm-3">Color</dt>
-      <dd class="col-sm-9">Brown</dd>
-    
-      <dt class="col-sm-3">Delivery</dt>
-      <dd class="col-sm-9">Russia, USA, and Europe </dd>
-    </dl>
-    
-    <hr>
-        <div class="form-row">
-            <div class="form-group col-md flex-grow-0">
-                <label>Quantity</label>
-                <div class="input-group mb-3 input-spinner">
-                  <div class="input-group-prepend">
-                    <button class="btn btn-light" type="button" id="button-plus"> + </button>
-                  </div>
-                  <input type="text" class="form-control" value="1">
-                  <div class="input-group-append">
-                    <button class="btn btn-light" type="button" id="button-minus"> − </button>
-                  </div>
+       <!-- Modal -->
+       <div class="modal fade" id="myModal" role="dialog">
+         <div class="modal-dialog">
+         
+           <!-- Modal content-->
+           <div class="modal-content">
+             <div class="modal-header">
+               <h4 class="modal-title">Give your Review</h4>
+               <button type="button" class="close" data-dismiss="modal">&times;</button>
+             </div>
+             <div class="modal-body">
+              <form action="#" class="signin-form">
+                <div class="form-group">
+                  <input type="text" class="form-control" >
                 </div>
-            </div> <!-- col.// -->
-            <div class="form-group col-md">
-                    <label>Select size</label>
-                    <div class="mt-1">
-                        <label class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" name="select_size" checked="" class="custom-control-input">
-                          <div class="custom-control-label">Small</div>
-                        </label>
-    
-                        <label class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" name="select_size" class="custom-control-input">
-                          <div class="custom-control-label">Medium</div>
-                        </label>
-    
-                        <label class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" name="select_size" class="custom-control-input">
-                          <div class="custom-control-label">Large</div>
-                        </label>
-    
-                    </div>
-            </div> <!-- col.// -->
-        </div> <!-- row.// -->
-    
-        <a href="#" class="btn  btn-primary"> Buy now </a>
-        <a href="#" class="btn  btn-outline-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
-    </article> <!-- product-info-aside .// -->
-            </main> <!-- col.// -->
-        </div> <!-- row.// -->
-    </div> <!-- card.// -->
-    <!-- ============================ COMPONENT 1 END .// ================================= -->
-    
-
+              </form>
+             </div>
+             <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               <button type="button" class="btn btn-primary">Save changes</button>
+             </div>
+           </div>
+           
+         </div>
+       </div>
+      
+      
     </div>
-    </section>
-    
-{% endblock %}
+  </div>
+</div>
+
+ {% endblock %}
+  
+ 
+ {% block js %}
+ <script>
+cart = JSON.parse(localStorage.getItem('cart'));
+ let aid=document.getElementById('qnt').getAttribute('class');
+ let pri=document.getElementById('priceCal').getAttribute('class');
+ document.getElementById('qnt').innerHTML='<h6><b>Quantity</b></h6> <input type = "number"  size="20" value = '+cart[aid][0] +'    > <h6><b>NetPrice</b></h6><input id="priceCal" class="{{product.price}}" type = "number"  size="20" value = '+cart[aid][0]*Number(pri) +'    >';
+ document.getElementById('popcart').innerHTML="";
+ 
+ 
+ 
+ </script>
+ {% endblock %}
