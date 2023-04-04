@@ -84,3 +84,11 @@ class Payment(models.Model):
     
     def __str__(self):
         return self.name
+
+
+class Review(models.Model):
+
+    user_id=models.IntegerField(default=0)
+    product_id=models.IntegerField(default=0)
+    user_review=models.CharField(max_length=500, default="")
+    user_name = models.CharField(max_length=50, default="")

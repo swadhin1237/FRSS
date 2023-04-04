@@ -107,15 +107,34 @@
                 <img src="../../../media/card2.png" width="50">
                 <br><br>
 
-                Credit card number
-            <input type="text" name="credit_card_number" placeholder="Enter card number">
-                
-                Exp month
-                <input type="text" name="month" placeholder="Enter Month">
-                <div id="year">
+                Credit Card number
+            <input type="text" name="credit_card_number" placeholder="Enter card number" style="width: 50%; justify-content: space-around; display: flex;">
+              <div style="padding: 10px; justify-content: space-around; display: flex;">
+                <span id="month" >
+                    <label style="padding-right: 20px; ">
+                        Enter Month 
+                        <select name="year" style="height: 30px; ">
+                            <option>Choose Month..</option>
+                            <option value=jan>jan</option>
+                            <option value=feb>feb</option>
+                            <option value=mar>mar</option>
+                            <option value=apr>apr</option>
+                            <option value=may>may</option>
+                            <option value=jun>jun</option>
+                            <option value=jul>jul</option>
+                            <option value=aug>aug</option>
+                            <option value=sept>sept</option>
+                            <option value=oct>oct</option>
+                            <option value=nov>nov</option>
+                            <option value=dec>dec</option>
+                        </select>
+                    </label>
+                    
+                </span>
+                <span id="year" >
                     <label>
                         Exp year
-                        <select name="year">
+                        <select name="year" style="height: 30px;">
                             <option>Choose Year..</option>
                             <option value=2022>2022</option>
                             <option value=2023>2023</option>
@@ -123,11 +142,15 @@
                             <option value=2025>2025</option>
                         </select>
                     </label>
-                        <label>CVV<input type="number" name="cvv" placeholder="CVV">
-                    </label>
-                </div>
+                    
+                </span>
+            </div >  
+                
+                CVV
+                <input type="number" name="cvv" placeholder="CVV" style="width: 50%; justify-content: space-around; display: flex;">
+                <br>
                 Total Payment
-                <input type="number" name="payment" placeholder="Enter Amount">
+                <input type="number" name="payment" placeholder="Enter Amount" style="width: 50%; justify-content: space-around; display: flex;">
             
             <input type="submit" name="" value="Proceed to Checkout">
             </form>

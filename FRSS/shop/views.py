@@ -116,7 +116,7 @@ def signup(request):
         user.save()
         customer.save()
 
-        return log_in(request)
+        return redirect("/shop/log_in")
     return render(request, "shop/signup.html")
 
 
@@ -133,8 +133,8 @@ def productView(request, id,user1_id):
     for i in allcustomer:
         if i.user.id == user1_id:
             cust = i
-
-    return render(request, 'shop/prodView.html', {'product': product[0], 'customer': cust})
+    allreview=Review.objects.filter(product_id=id)
+    return render(request, 'shop/prodView.html', {'product': product[0], 'customer': cust,'review':allreview})
 
 
 def checkout(request,user1_id):
@@ -287,3 +287,19 @@ def payment(request, user1_id):
         payment = Payment.objects.create(name=name,credit_card_number=credit_card_number, month=month, year=year, cvv=cvv,pay=pay)
         payment.save()
     return redirect("/shop/profile/"+str(user1_id))
+
+
+def review(request,id,user1_id):
+    allcustomer = Customer.objects.filter()
+    cust = None
+    for i in allcustomer:
+        if i.user.id == user1_id:
+            cust = i
+    if request.method == "POST":
+        user_id = user1_id
+        product_id = id
+        user_review = request.POST['cust_review']
+        user_name = cust.first_name + " " + cust.last_name
+        review=Review.objects.create(user_id=user_id,product_id=product_id,user_review=user_review,user_name=user_name)
+        review.save()
+    return redirect('/shop/products/'+str(id)+'/'+str(user1_id))
