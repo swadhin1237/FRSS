@@ -9,7 +9,8 @@ from django import forms
 from datetime import date
 from django.contrib.auth.models import User
 from django.utils import timezone
-
+from django.core.mail import send_mail
+from FRSS.settings import EMAIL_HOST_USER
 # Create your views here.
 
 def test(request):
@@ -66,6 +67,8 @@ def contact(request,user1_id):
         desc = request.POST.get('desc', '')
         contact = Contact(name=name, email=email, phone=phone, desc=desc)
         contact.save()
+        send_mail('Querries From Customer'+name,f"Check for his queries\n"+desc,EMAIL_HOST_USER,["quickdoc231@gmail.com"],fail_silently=True)
+        send_mail('Successfully querries', f"Your querries successfully send to admin Swadhin please wait for his further response", EMAIL_HOST_USER, [email], fail_silently=True)
     return render(request, 'shop/contact.html', {'customer': cust})
 
 
