@@ -153,6 +153,8 @@ def checkout(request,user1_id):
             cust = i
     if request.method == "POST":
         items_json = request.POST.get('itemsJson', '')[1:-1]
+        year=int(request.POST['year'])
+        emailToBuy=request.POST['email']
         p = items_json.split('"')
         j = 0
         item_id, item_number = 0, 0
@@ -171,14 +173,19 @@ def checkout(request,user1_id):
                     if item_id==k.id:
                         pro=k
                 order1 = OrderDetail.objects.create(order_name=pro.product_name, customer_id=cust.user.id,customer_name=cust.user.username,
-                                                    product_id=pro.id, product_taken=item_number, sub_cat=pro.sub_category, total_price=pro.price*item_number)
-                cust.changeMaxLoan(pro.price*item_number)
-                cust.changePendingAmount(pro.price*item_number)
+                                                    product_id=pro.id, product_taken=item_number, sub_cat=pro.sub_category, total_price=pro.price*item_number*year,year=year)
+                cust.changeMaxLoan(pro.price*item_number*year)
+                cust.changePendingAmount(pro.price*item_number*year)
                 cust.save()
                 pro.changePrice(item_number)
                 pro.changeCurrentNumber(item_number)
+                if(pro.currentNumber<=4):
+                    send_mail('Shortage of demand '+pro.product_name, f"There is a shortage of product of"+pro.product_name+".\nPlease take necessary action.", EMAIL_HOST_USER, ["quickdoc231@gmail.com"], fail_silently=True)
                 pro.save()
                 order1.save()
+                send_mail('Your Profit from order '+str(order1.id), f"Thanks to "+cust.user.username + "for buying of worth Rs: " +str(pro.price*item_number*year), EMAIL_HOST_USER, ["quickdoc231@gmail.com"], fail_silently=True)
+                send_mail('Your Order id  '+str(order1.id), f"Thanks for buying furniture of worth Rs: " + str(pro.price*item_number*year) + " for " + str(year) +
+                          " years .\n Please Contact to quickdoc231@gmail.com for further process.", EMAIL_HOST_USER, [emailToBuy], fail_silently=True)
             j += 1
         return render(request, 'shop/checkout.html', {'customer': cust, 'thank': True})
 

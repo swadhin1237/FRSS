@@ -68,6 +68,7 @@ class OrderDetail(models.Model):
     total_price = models.IntegerField(default=0)
     isPaid=models.BooleanField(default=False)
     isReturn=models.BooleanField(default=False)
+    year=models.IntegerField(default=1)
     def __str__(self):
         return self.order_name
 
