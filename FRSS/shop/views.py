@@ -69,8 +69,13 @@ def contact(request,user1_id):
     return render(request, 'shop/contact.html', {'customer': cust})
 
 
-def learn(request):
-    return render(request, 'shop/learn.html')
+def learn(request,user1_id):
+    allcustomer = Customer.objects.filter()
+    cust = None
+    for i in allcustomer:
+        if i.user.id == user1_id:
+            cust = i
+    return render(request, 'shop/learn.html',{'customer':cust})
 
 def tracker(request):
     return render(request, 'shop/tracker.html')
@@ -87,7 +92,7 @@ def log_in(request):
             if request.user.is_superuser:
                 return HttpResponse("This is not a customer id")
             else:
-                return index(request,user.id)
+                return redirect('/shop/'+str(user.id))
         else:
             alert = True
             return render(request, "shop/login.html", {'alert': alert})
@@ -284,6 +289,12 @@ def payment(request, user1_id):
         pay = request.POST['payment']
         cust.Pending_amount=cust.Pending_amount-int(pay)
         cust.save()
+        if (cust.Pending_amount==0):
+            all_order = OrderDetail.objects.filter(customer_id=user1_id)
+            for ordes in all_order:
+                ordes.isPaid=True
+                ordes.save()
+            
         payment = Payment.objects.create(name=name,credit_card_number=credit_card_number, month=month, year=year, cvv=cvv,pay=pay)
         payment.save()
     return redirect("/shop/profile/"+str(user1_id))
